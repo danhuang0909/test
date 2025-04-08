@@ -1,0 +1,34 @@
+---
+layout: default
+title: Gene Search
+---
+
+<div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search for a gene...">
+    <button onclick="handleSearch()">Search</button>
+</div>
+<div class="results" id="results"></div>
+
+<script>
+    const genes = [
+        { name: 'BRCA1', info: 'Breast Cancer Gene 1', position: '17q21.31' },
+        { name: 'TP53', info: 'Tumor Protein P53', position: '17p13.1' },
+        // Add more gene data as needed
+    ];
+
+    function handleSearch() {
+        const query = document.getElementById('searchInput').value.toLowerCase();
+        const results = document.getElementById('results');
+        results.innerHTML = '';
+        const filteredGenes = genes.filter(gene => gene.name.toLowerCase().includes(query));
+        filteredGenes.forEach(gene => {
+            const geneDiv = document.createElement('div');
+            geneDiv.innerText = gene.name;
+            geneDiv.onclick = () => {
+                const url = `gene.html?name=${gene.name}&info=${gene.info}&position=${gene.position}`;
+                window.location.href = url;
+            };
+            results.appendChild(geneDiv);
+        });
+    }
+</script>
